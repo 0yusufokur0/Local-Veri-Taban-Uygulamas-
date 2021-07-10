@@ -1,0 +1,2 @@
+rootProject.name = "Local Veri Tabanı Uygulaması"
+include ':app'
