@@ -8,9 +8,13 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,6 +36,8 @@ public class KayitEkleGuncelle extends AppCompatActivity {
     //iziler dizi
     private String[] kameraIzınleri; // kamera ve depolama izin
     private String[] depolamaIzınleri; // depolama izin
+    // resim tutucu
+    private Uri resimUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +94,7 @@ public class KayitEkleGuncelle extends AppCompatActivity {
                         kameraIzınTalebi();
                     }else {
                         //kameradam resim sec
-                        Toast.makeText(KayitEkleGuncelle.this, "kamerdan resim sec", Toast.LENGTH_SHORT).show();
+                        kameradanSec();
                     }
                 }
                 if (which == 1){
@@ -100,11 +106,34 @@ public class KayitEkleGuncelle extends AppCompatActivity {
                         depolamaIzınTalebi();
                     }else {
                         //galeriden resim sec
-                        Toast.makeText(KayitEkleGuncelle.this, "depolamadan  resim sec", Toast.LENGTH_SHORT).show();
-                    }                }
+                        galeridenSec();
+
+                    }
+                }
             }
         });
         builder.create().show();
+    }
+
+    // kamerayı açtırma
+    private void kameradanSec() {
+        // kameradan secilen resim onActivty result metotu ile alınacak
+        ContentValues degerler = new ContentValues();
+        degerler.put(MediaStore.Images.Media.TITLE,"Resim Başlığı");
+        degerler.put(MediaStore.Images.Media.DESCRIPTION,"Resim Açıklaması");
+        resimUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,degerler);
+
+        Intent kameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        kameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,resimUri);
+        startActivityForResult(kameraIntent,KAMERADAN_RESİM_SECME_KODU);
+    }
+
+    // galeriden Açtırma
+    private void galeridenSec() {
+        // galeriden secilen resim onActivty result metotu ile alınacak
+        Intent galeriIntent = new Intent(Intent.ACTION_PICK);
+        galeriIntent.setType("image/*"); // burada resim ve (/*)resim türlerindekiler anlamına geliyor
+        startActivityForResult(galeriIntent,GALERİDEN_RESİM_SECME_KODU);
     }
 
     //ActionBardaki geriye tıklandığında geriye gitmesi
