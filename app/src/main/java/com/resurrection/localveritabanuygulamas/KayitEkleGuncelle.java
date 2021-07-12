@@ -49,8 +49,11 @@ public class KayitEkleGuncelle extends AppCompatActivity {
     private String[] depolamaIzınleri; // depolama izin
     // resim tutucu
     private Uri resimUri;
+    private String id,ad,resim,telefon,email,dogumtarihi,aciklama,eklenmetarihi;
 
-    ActivityResultLauncher<Intent> activityResultLauncher;
+    // veritabanı helper
+
+    VtHelper vtHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +67,15 @@ public class KayitEkleGuncelle extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);// geri oku
 
         profileResmi = findViewById(R.id.iv_Profil_Resmi);
+        editAd = findViewById(R.id.edit_Ad);
         editTelefon = findViewById(R.id.edit_Telefon);
         editMail = findViewById(R.id.edit_mail);
         editDogumtarihi = findViewById(R.id.edit_Dogumtarihi);
         editAciklama = findViewById(R.id.edit_Aciklama);
         btnKayit = findViewById(R.id.btn_kayit);
+
+        // veritabanı tanımlası
+        vtHelper = new VtHelper(this);
 
         // izin dizileri tanımlama
         kameraIzınleri = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -84,7 +91,8 @@ public class KayitEkleGuncelle extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // ver tabanına kayıt gönder
-                Toast.makeText(KayitEkleGuncelle.this, "kayıt buradan yapılacak....", Toast.LENGTH_SHORT).show();
+                veriEkle();
+
             }
         });
 
@@ -96,6 +104,28 @@ public class KayitEkleGuncelle extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void veriEkle() {
+        ad = editAd.getText().toString().trim();
+        telefon = editTelefon.getText().toString().trim();
+        email = editMail.getText().toString().trim();
+        aciklama = editAciklama.getText().toString().trim();
+        dogumtarihi = editDogumtarihi.getText().toString().trim();
+
+        String anlıkZaman = ""+System.currentTimeMillis();
+
+        long id = vtHelper.kayitEkle(
+                ""+ad,
+                ""+resimUri,
+                ""+aciklama,
+                ""+telefon,
+                ""+email,
+                ""+dogumtarihi,
+                ""+anlıkZaman,
+                ""+anlıkZaman);
+        Toast.makeText(this, id+"kaydınız eklenmiştir", Toast.LENGTH_SHORT).show();
 
     }
 
