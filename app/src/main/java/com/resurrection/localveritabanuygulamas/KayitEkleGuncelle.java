@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +24,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
@@ -186,14 +188,55 @@ public class KayitEkleGuncelle extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull  String[] permissions, @NonNull  int[] grantResults) {
+        // izin durumuna göre yapılması gerekenler (izin verilme veya reddeilme durumu)
+        switch (requestCode){
+            case KAMERA_TALEP_KODU:
+            {
+                if (grantResults.length>0){
+                    // izin alınmışsa true döndür aksi halde false
+                    boolean kameraKabul = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean depolamaKabul = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                    if (kameraKabul && depolamaKabul){
+                        kameradanSec();
+                    }else {
+                        Toast.makeText(this, "kamera ve depolama izni gerekli", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+            break;
+
+            case Depolama_TALEP_KODU:
+            {
+                if (grantResults.length>0){
+                    // izin alınmışsa true döndür aksi halde false
+                    boolean depolamaKabul = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                    if (depolamaKabul){
+                        galeridenSec();
+                    }else {
+                        Toast.makeText(this, "depolama izni gerekli", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+            break;
+        }
+        
+        
+        
+        
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //KAMERADAN YADA ALINACAK RESİM BURADA İŞLENİP alınacak
-        System.out.println("buradayız");
         if (resultCode == RESULT_OK) {
             // resim seçildi
-            System.out.println("şuradayız");
             if (requestCode == GALERİDEN_RESİM_SECME_KODU) {
-                System.out.println("oradayız");
                 // galeriden secilen resim
                 CropImage.activity(data.getData())
                         .setGuidelines(CropImageView.Guidelines.ON)
