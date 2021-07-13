@@ -49,7 +49,7 @@ public class KayitEkleGuncelle extends AppCompatActivity {
     private String[] depolamaIzınleri; // depolama izin
     // resim tutucu
     private Uri resimUri;
-    private String id,ad,resim,telefon,email,dogumtarihi,aciklama,eklenmetarihi;
+    private String id,ad,telefon,email,dogumtarihi,aciklama,eklenmetarihi;
 
     // veritabanı helper
 
@@ -93,6 +93,7 @@ public class KayitEkleGuncelle extends AppCompatActivity {
                 // ver tabanına kayıt gönder
                 veriEkle();
 
+
             }
         });
 
@@ -116,7 +117,7 @@ public class KayitEkleGuncelle extends AppCompatActivity {
 
         String anlıkZaman = ""+System.currentTimeMillis();
 
-        long id = vtHelper.kayitEkle(
+        long id =  vtHelper.kayitEkle(
                 ""+ad,
                 ""+resimUri,
                 ""+aciklama,
@@ -125,7 +126,7 @@ public class KayitEkleGuncelle extends AppCompatActivity {
                 ""+dogumtarihi,
                 ""+anlıkZaman,
                 ""+anlıkZaman);
-        Toast.makeText(this, id+"kaydınız eklenmiştir", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, id+" kaydınız eklenmiştir", Toast.LENGTH_SHORT).show();
 
     }
 

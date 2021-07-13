@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="#000000"
     tools:context=".MainActivity">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvKayitlar"
+        android:paddingBottom="85dp"
+        android:background="#1B1B1B"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:clipToPadding="false"
+        tools:listitem="@layout/rv_satir_gorunumu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_kayit_ekle"

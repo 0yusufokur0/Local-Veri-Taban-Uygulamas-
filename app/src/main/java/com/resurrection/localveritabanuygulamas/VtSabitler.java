@@ -35,7 +35,7 @@ public class VtSabitler {
             + S_DOGUM_TARIHI +" TEXT,"
             + S_EKLENME_TARIHI +" TEXT,"
             + S_GUNCELLEME_TARIHI +" TEXT"
-            +" )";
+            +")";
 
 
 }
