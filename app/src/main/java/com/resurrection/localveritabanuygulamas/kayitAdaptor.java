@@ -1,6 +1,7 @@
 package com.resurrection.localveritabanuygulamas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,15 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
             }
         });
 
+        // herbir sdatıra tıklandığında
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent veriDetayları = new Intent(context,veriDetaylariActivity.class);
+                context.startActivity(veriDetayları);
+            }
+        });
 
 
     }
