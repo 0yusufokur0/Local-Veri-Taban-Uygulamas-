@@ -82,6 +82,8 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
             public void onClick(View v) {
 
                 Intent veriDetayları = new Intent(context,veriDetaylariActivity.class);
+                // ilgi id ye gömre veri detayı göstermek amaçlı id yi gönderiyoruz
+                veriDetayları.putExtra("VERI_ID",id);
                 context.startActivity(veriDetayları);
             }
         });
