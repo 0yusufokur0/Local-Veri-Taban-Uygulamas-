@@ -1,6 +1,8 @@
 package com.resurrection.localveritabanuygulamas;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -28,8 +30,8 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
     // satırı görünümünü adaptore bağlama
     @NonNull
     @Override
-    public kayitTutucu onCreateViewHolder(@NonNull  ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.rv_satir_gorunumu,parent,false);
+    public kayitTutucu onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.rv_satir_gorunumu, parent, false);
         return new kayitTutucu(view);
 
     }
@@ -61,10 +63,10 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
         holder.tvTelefon.setText(telefon);
 
         //resmi yazdır
-        if (resim.equals("null")){
+        if (resim.equals("null")) {
             // resim boşsa varsayılan resim aktar
             holder.profilResmi.setImageResource(R.drawable.ic_baseline_person_24);
-        }else {
+        } else {
             // veritabanında eklenmiş resim varsa
             holder.profilResmi.setImageURI(Uri.parse(resim));
         }
@@ -81,14 +83,55 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
             @Override
             public void onClick(View v) {
 
-                Intent veriDetayları = new Intent(context,veriDetaylariActivity.class);
+                Intent veriDetayları = new Intent(context, veriDetaylariActivity.class);
                 // ilgi id ye gömre veri detayı göstermek amaçlı id yi gönderiyoruz
-                veriDetayları.putExtra("VERI_ID",id);
+                veriDetayları.putExtra("VERI_ID", id);
                 context.startActivity(veriDetayları);
+            }
+        });
+        // silme butonu
+        holder.btnSilGuncell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guncellemSilmePenceresiOlustur(
+                        "" + position,
+                        "" + id,
+                        "" + ad,
+                        "" + telefon,
+                        "" + email,
+                        "" + dorumtarihi,
+                        "" + aciklama,
+                        "" + resim,
+                        "" + eklemeZamani,
+                        "" + gumcellemeZamani);
             }
         });
 
 
+    }
+
+    private void guncellemSilmePenceresiOlustur(String position, String id, String ad, String telefon,
+                                                String email, String dogumtarihi, String aciklama,
+                                                String resim, String eklemeZamani, String guncellemZamani) {
+        String[] secenekler = {"güncelle", "sil"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setItems(secenekler, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (which == 0) {
+                    // güncellemeyi tıklama
+                    Toast.makeText(context, "güncelle", Toast.LENGTH_SHORT).show();
+                }
+                if (which == 1) {
+                    // Silmeyi tıklama
+                    Toast.makeText(context, "Sil", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        });
+        builder.create().show();
     }
 
     // tablodaki satır sayısı
@@ -101,7 +144,7 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
     public class kayitTutucu extends RecyclerView.ViewHolder {
 
         ImageView profilResmi;
-        TextView tvAd,tvTelefon,tvEmail,tvDogumTarihi;
+        TextView tvAd, tvTelefon, tvEmail, tvDogumTarihi;
         ImageButton btnSilGuncell;
 
         public kayitTutucu(@NonNull View itemView) {
