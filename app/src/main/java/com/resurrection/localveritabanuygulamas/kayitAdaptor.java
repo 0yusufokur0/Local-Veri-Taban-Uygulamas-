@@ -121,7 +121,22 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
 
                 if (which == 0) {
                     // güncellemeyi tıklama
-                    Toast.makeText(context, "güncelle", Toast.LENGTH_SHORT).show();
+
+                    // ilgili id ıntent ile kayıt ekleme güncelle saydasına gönder
+                    Intent kayitVeriGonder = new Intent(context,KayitEkleGuncelle.class);
+                    kayitVeriGonder.putExtra("ID",ad);
+                    kayitVeriGonder.putExtra("AD",id);
+                    kayitVeriGonder.putExtra("TELEFON",telefon);
+                    kayitVeriGonder.putExtra("EMAIL",email);
+                    kayitVeriGonder.putExtra("DOGUM_TARIHI",dogumtarihi);
+                    kayitVeriGonder.putExtra("ACIKLAMA",aciklama);
+                    kayitVeriGonder.putExtra("RESIM",resim);
+                    kayitVeriGonder.putExtra("EKLEMEZAMANI",eklemeZamani);
+                    kayitVeriGonder.putExtra("GUNCELLEMEZAMANI",guncellemZamani);
+                    kayitVeriGonder.putExtra("GÜNCELLEME DURUMU",true);
+                    context.startActivity(kayitVeriGonder);
+
+
                 }
                 if (which == 1) {
                     // Silmeyi tıklama

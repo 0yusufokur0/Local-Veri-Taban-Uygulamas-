@@ -49,12 +49,14 @@ public class KayitEkleGuncelle extends AppCompatActivity {
     private String[] depolamaIzınleri; // depolama izin
     // resim tutucu
     private Uri resimUri;
-    private String id,ad,telefon,email,dogumtarihi,aciklama,eklenmetarihi;
+    private String id,ad,telefon,email,dogumtarihi,aciklama,eklenmetarihi,guncellemeTarihi;
 
     // veritabanı helper
 
     VtHelper vtHelper;
 
+    // güncelleme durumu
+    private boolean guncellemDurumu = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,51 @@ public class KayitEkleGuncelle extends AppCompatActivity {
         editAciklama = findViewById(R.id.edit_Aciklama);
         btnKayit = findViewById(R.id.btn_kayit);
 
+        // gelen intenti al
+        Intent intent = getIntent();
+        guncellemDurumu = intent.getBooleanExtra("GÜNCELLEME DURUMU",false);
+        // verileri kontrollere aktarma
+        if (guncellemDurumu){
+
+            actionBar.setTitle("VERİYİ GÜNCELLE");
+
+            // eğergüncelleme durumu varsa intetnt ile alanları al
+            id = intent.getStringExtra("ID");
+            ad = intent.getStringExtra("AD");
+            telefon = intent.getStringExtra("TELEFON");
+            email = intent.getStringExtra("EMAIL");
+            dogumtarihi = intent.getStringExtra("DOGUM_TARIHI");
+            aciklama = intent.getStringExtra("ACIKLAMA");
+            resimUri = Uri.parse(intent.getStringExtra("RESIM"));
+            eklenmetarihi = intent.getStringExtra("EKLEMEZAMANI");
+            guncellemeTarihi = intent.getStringExtra("GUNCELLEMEZAMANI");
+
+            // alınan alanları kontrollere aktar
+            editAd.setText(ad);
+            editTelefon.setText(telefon);
+            editDogumtarihi.setText(dogumtarihi);
+            editAciklama.setText(aciklama);
+            editMail.setText(email);
+
+            // resim boşsa
+            if (resimUri.toString().equals("null")){
+                profileResmi.setImageResource(R.drawable.ic_baseline_person_24);
+            }// resim varsa
+            else{
+                profileResmi.setImageURI(resimUri);
+            }
+
+        }
+        else{
+
+            // güncelleme durumu yoksa veriiyi göster
+            actionBar.setTitle("VERİ ekle ");
+        }
+
+
+
+
+
         // veritabanı tanımlası
         vtHelper = new VtHelper(this);
 
@@ -81,9 +128,6 @@ public class KayitEkleGuncelle extends AppCompatActivity {
         kameraIzınleri = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         depolamaIzınleri = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-
-        //--------------------------------------------------------
-        //-----------------------------------------------------
 
 
         //btn kayita tıklama
