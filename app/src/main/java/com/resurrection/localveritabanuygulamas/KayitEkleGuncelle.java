@@ -161,16 +161,34 @@ public class KayitEkleGuncelle extends AppCompatActivity {
 
         String anlıkZaman = ""+System.currentTimeMillis();
 
-        long id =  vtHelper.kayitEkle(
-                ""+ad,
-                ""+resimUri,
-                ""+aciklama,
-                ""+telefon,
-                ""+email,
-                ""+dogumtarihi,
-                ""+anlıkZaman,
-                ""+anlıkZaman);
-        Toast.makeText(this, id+" kaydınız eklenmiştir", Toast.LENGTH_SHORT).show();
+        if (guncellemDurumu){
+            // veriyi güncelle
+            vtHelper.kayitGuncelleme(
+                    ""+id,
+                    ""+ad,
+                    ""+resimUri,
+                    ""+aciklama,
+                    ""+telefon,
+                    ""+email,
+                    ""+dogumtarihi,
+                    ""+eklenmetarihi,
+                    ""+anlıkZaman);
+            Toast.makeText(this, id+"ıd li kaydınız güncellenmiştir", Toast.LENGTH_SHORT).show();
+        }else {
+            // yeni veri ekle
+            long id =  vtHelper.kayitEkle(
+                    ""+ad,
+                    ""+resimUri,
+                    ""+aciklama,
+                    ""+telefon,
+                    ""+email,
+                    ""+dogumtarihi,
+                    ""+anlıkZaman,
+                    ""+anlıkZaman);
+            Toast.makeText(this, id+" kaydınız eklenmiştir", Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
 

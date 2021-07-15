@@ -71,9 +71,40 @@ public class VtHelper extends SQLiteOpenHelper {
         // id değerini döndür
         return id;
 
+    }
+    // kayıt güncelleme metotdu
+    public void kayitGuncelleme(String id,String ad ,String resim,String aciklama,String telefon,String email,String dogumtarihi,String eklenmetarihi,String guncellemetarihi ){
+        // veritabaınan veri eklnecceği yazılabiliri veri tabanı olması şlazıom
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        // içerik değerleri
+        ContentValues degerler = new ContentValues();
 
 
+        // ıd otomatik eklenceği için yazılmasına gerek yok
 
+        // veri ekleme
+        degerler.put(VtSabitler.S_AD,ad);
+        degerler.put(VtSabitler.S_RESIM,resim);
+        degerler.put(VtSabitler.S_ACIKLAMA,aciklama);
+        degerler.put(VtSabitler.S_TELEFON,telefon);
+        degerler.put(VtSabitler.S_EMAIL,email);
+        degerler.put(VtSabitler.S_DOGUM_TARIHI,dogumtarihi);
+        degerler.put(VtSabitler.S_EKLENME_TARIHI,eklenmetarihi);
+        degerler.put(VtSabitler.S_GUNCELLEME_TARIHI,guncellemetarihi);
+        // satırı id göre ekle boş sutun kalmasın
+
+         // satırı id göre ekle boş sutun kalmasın
+        sqLiteDatabase.update(VtSabitler.TABLO_ADI,degerler,VtSabitler.S_ID+ " = ? ",new String[]{id});
+        sqLiteDatabase.close();
+    }
+
+
+    // veryi id ye göre silme
+    public void veriSil(String id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(VtSabitler.TABLO_ADI,VtSabitler.S_ID+"= ?",new String[]{id});
+        sqLiteDatabase.close();
     }
 
     // verileri veri tabanından al

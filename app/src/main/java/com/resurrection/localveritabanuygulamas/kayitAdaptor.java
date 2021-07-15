@@ -21,10 +21,13 @@ import java.util.ArrayList;
 public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu> {
     private Context context;
     private ArrayList<Ornekkayit> ornekList;
+    // veri tabanı
+    VtHelper vtHelper;
 
     public kayitAdaptor(Context context, ArrayList<Ornekkayit> ornekList) {
         this.context = context;
         this.ornekList = ornekList;
+        vtHelper = new VtHelper(context);
     }
 
     // satırı görünümünü adaptore bağlama
@@ -124,8 +127,8 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
 
                     // ilgili id ıntent ile kayıt ekleme güncelle saydasına gönder
                     Intent kayitVeriGonder = new Intent(context,KayitEkleGuncelle.class);
-                    kayitVeriGonder.putExtra("ID",ad);
-                    kayitVeriGonder.putExtra("AD",id);
+                    kayitVeriGonder.putExtra("ID",id);
+                    kayitVeriGonder.putExtra("AD",ad);
                     kayitVeriGonder.putExtra("TELEFON",telefon);
                     kayitVeriGonder.putExtra("EMAIL",email);
                     kayitVeriGonder.putExtra("DOGUM_TARIHI",dogumtarihi);
@@ -140,7 +143,9 @@ public class kayitAdaptor extends RecyclerView.Adapter<kayitAdaptor.kayitTutucu>
                 }
                 if (which == 1) {
                     // Silmeyi tıklama
-                    Toast.makeText(context, "Sil", Toast.LENGTH_SHORT).show();
+                    vtHelper.veriSil(id);
+                    Toast.makeText(context, id+"ıd li kayıt silinmiştir", Toast.LENGTH_SHORT).show();
+                    ((MainActivity)context).onResume(); // verileri yenile
 
                 }
 
