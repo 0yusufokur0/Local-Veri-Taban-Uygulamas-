@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_sil"
+        android:title="Sil"
+        android:icon="@drawable/ic_baseline_delete_sweep_24"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_sirala"
+        android:title="Sırala"
+        android:icon="@drawable/ic_baseline_sort_by_alpha_24"
+        app:showAsAction="always"/>
+
+
+</menu>

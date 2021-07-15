@@ -1,12 +1,18 @@
 package com.resurrection.localveritabanuygulamas;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -67,6 +73,56 @@ public class MainActivity extends AppCompatActivity {
 
         verileriYukle(mevcutSiralamaTuru);
         super.onResume();
+    }
+
+    // menu xml i bağlmak için
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ogeleri,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // menu öğrelerine tıklamak için
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.menu_sil){
+            Toast.makeText(this, "silinecek", Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.menu_sirala){
+            // sırlama
+            sıralamaDialog();
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void sıralamaDialog() {
+        String[] ogeler ={"En Yeniye Göre Sırala","En eskiye Göre sırala","a dan ze ye ","z e en a ya sırala"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Sırala");
+        builder.setItems(ogeler, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    verileriYukle(enYeniyeGöreSırala);
+                }
+                if (which == 1){
+                    verileriYukle(enEskiyeGöreSırala);
+                }
+                if (which == 2){
+                    verileriYukle(aDanZYeSırala);
+                }
+                if (which == 3){
+                    verileriYukle(ZDanAYeSırala);
+                }
+            }
+        });
+        builder.create().show();
     }
 }
 
