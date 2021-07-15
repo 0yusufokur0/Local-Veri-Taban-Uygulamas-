@@ -90,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
         int id = item.getItemId();
         if (id == R.id.menu_sil){
-            Toast.makeText(this, "silinecek", Toast.LENGTH_SHORT).show();
+            vtHelper.hepsiniSil();
+            onResume();
         }
         if (id == R.id.menu_sirala){
             // sırlama

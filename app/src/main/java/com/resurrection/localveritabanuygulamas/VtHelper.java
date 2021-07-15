@@ -15,7 +15,7 @@ public class VtHelper extends SQLiteOpenHelper {
 
     // vferi tabını oluşturma
     public VtHelper(@Nullable Context context) {
-        super(context, VtSabitler.VT_ADI,null,VtSabitler.VT_VERSION);
+        super(context, VtSabitler.VT_ADI, null, VtSabitler.VT_VERSION);
 
     }
 
@@ -33,7 +33,7 @@ public class VtHelper extends SQLiteOpenHelper {
         // Yapısal bir değişilik (upgrade ) oldupunuda eski tabloyu düşür ve yenisini oluştur
 
         // eski tablo duruyorsa kurtul düşür drop yap
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+VtSabitler.TABLO_ADI);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + VtSabitler.TABLO_ADI);
         // YENİDEN TABLO OLUŞTUR
 
         onCreate(sqLiteDatabase);
@@ -41,10 +41,10 @@ public class VtHelper extends SQLiteOpenHelper {
     }
 
 
-
     // veritabınına kayıt ekleme metotu
-    public long kayitEkle(String ad ,String resim,String aciklama,String telefon,String email,String dogumtarihi,String eklenmetarihi,String guncellemetarihi){{
-    }
+    public long kayitEkle(String ad, String resim, String aciklama, String telefon, String email, String dogumtarihi, String eklenmetarihi, String guncellemetarihi) {
+        {
+        }
         // veritabaınan veri eklnecceği yazılabiliri veri tabanı olması şlazıom
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -54,16 +54,16 @@ public class VtHelper extends SQLiteOpenHelper {
 
         // ıd otomatik eklenceği için yazılmasına gerek yok
         // veri ekleme
-        degerler.put(VtSabitler.S_AD,ad);
-        degerler.put(VtSabitler.S_RESIM,resim);
-        degerler.put(VtSabitler.S_ACIKLAMA,aciklama);
-        degerler.put(VtSabitler.S_TELEFON,telefon);
-        degerler.put(VtSabitler.S_EMAIL,email);
-        degerler.put(VtSabitler.S_DOGUM_TARIHI,dogumtarihi);
-        degerler.put(VtSabitler.S_EKLENME_TARIHI,eklenmetarihi);
-        degerler.put(VtSabitler.S_GUNCELLEME_TARIHI,guncellemetarihi);
+        degerler.put(VtSabitler.S_AD, ad);
+        degerler.put(VtSabitler.S_RESIM, resim);
+        degerler.put(VtSabitler.S_ACIKLAMA, aciklama);
+        degerler.put(VtSabitler.S_TELEFON, telefon);
+        degerler.put(VtSabitler.S_EMAIL, email);
+        degerler.put(VtSabitler.S_DOGUM_TARIHI, dogumtarihi);
+        degerler.put(VtSabitler.S_EKLENME_TARIHI, eklenmetarihi);
+        degerler.put(VtSabitler.S_GUNCELLEME_TARIHI, guncellemetarihi);
         // satırı id göre ekle boş sutun kalmasın
-        long id = sqLiteDatabase.insert(VtSabitler.TABLO_ADI,null,degerler);
+        long id = sqLiteDatabase.insert(VtSabitler.TABLO_ADI, null, degerler);
 
         // ver tabanını kapat
         sqLiteDatabase.close();
@@ -72,8 +72,9 @@ public class VtHelper extends SQLiteOpenHelper {
         return id;
 
     }
+
     // kayıt güncelleme metotdu
-    public void kayitGuncelleme(String id,String ad ,String resim,String aciklama,String telefon,String email,String dogumtarihi,String eklenmetarihi,String guncellemetarihi ){
+    public void kayitGuncelleme(String id, String ad, String resim, String aciklama, String telefon, String email, String dogumtarihi, String eklenmetarihi, String guncellemetarihi) {
         // veritabaınan veri eklnecceği yazılabiliri veri tabanı olması şlazıom
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -84,39 +85,45 @@ public class VtHelper extends SQLiteOpenHelper {
         // ıd otomatik eklenceği için yazılmasına gerek yok
 
         // veri ekleme
-        degerler.put(VtSabitler.S_AD,ad);
-        degerler.put(VtSabitler.S_RESIM,resim);
-        degerler.put(VtSabitler.S_ACIKLAMA,aciklama);
-        degerler.put(VtSabitler.S_TELEFON,telefon);
-        degerler.put(VtSabitler.S_EMAIL,email);
-        degerler.put(VtSabitler.S_DOGUM_TARIHI,dogumtarihi);
-        degerler.put(VtSabitler.S_EKLENME_TARIHI,eklenmetarihi);
-        degerler.put(VtSabitler.S_GUNCELLEME_TARIHI,guncellemetarihi);
+        degerler.put(VtSabitler.S_AD, ad);
+        degerler.put(VtSabitler.S_RESIM, resim);
+        degerler.put(VtSabitler.S_ACIKLAMA, aciklama);
+        degerler.put(VtSabitler.S_TELEFON, telefon);
+        degerler.put(VtSabitler.S_EMAIL, email);
+        degerler.put(VtSabitler.S_DOGUM_TARIHI, dogumtarihi);
+        degerler.put(VtSabitler.S_EKLENME_TARIHI, eklenmetarihi);
+        degerler.put(VtSabitler.S_GUNCELLEME_TARIHI, guncellemetarihi);
         // satırı id göre ekle boş sutun kalmasın
 
-         // satırı id göre ekle boş sutun kalmasın
-        sqLiteDatabase.update(VtSabitler.TABLO_ADI,degerler,VtSabitler.S_ID+ " = ? ",new String[]{id});
+        // satırı id göre ekle boş sutun kalmasın
+        sqLiteDatabase.update(VtSabitler.TABLO_ADI, degerler, VtSabitler.S_ID + " = ? ", new String[]{id});
         sqLiteDatabase.close();
     }
 
 
     // veryi id ye göre silme
-    public void veriSil(String id){
+    public void veriSil(String id) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.delete(VtSabitler.TABLO_ADI,VtSabitler.S_ID+"= ?",new String[]{id});
+        sqLiteDatabase.delete(VtSabitler.TABLO_ADI, VtSabitler.S_ID + "= ?", new String[]{id});
+        sqLiteDatabase.close();
+    }
+
+    public void hepsiniSil() {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("DELETE FROM "+VtSabitler.TABLO_ADI);
         sqLiteDatabase.close();
     }
 
     // verileri veri tabanından al
-    public ArrayList<Ornekkayit> butunKayitlariAl(String sirala){
+    public ArrayList<Ornekkayit> butunKayitlariAl(String sirala) {
         // sirala verileri yenidden sirala eskiye sırayaklacak
         // veriyi döngü ile bütün tablodan alıp listeye aktarımı
         ArrayList<Ornekkayit> kayitlarListesi = new ArrayList<>();
         // Secim Sorgusu
-        String secimSorgusu = "SELECT * FROM "+VtSabitler.TABLO_ADI +" ORDER BY " +sirala;
+        String secimSorgusu = "SELECT * FROM " + VtSabitler.TABLO_ADI + " ORDER BY " + sirala;
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         // bütün satırları ve everieri dolaşmak amaçlı cursor oluşturma
-        Cursor cursor = sqLiteDatabase.rawQuery(secimSorgusu,null);
+        Cursor cursor = sqLiteDatabase.rawQuery(secimSorgusu, null);
         // cursoru bütün kayıtlarda döngü ile dolaşştırıp kayıtları alam
         if (cursor.moveToFirst()) {
 
@@ -143,19 +150,18 @@ public class VtHelper extends SQLiteOpenHelper {
     }
 
     // kaç adet satır var
-    public int kayitSayisiAl(){
+    public int kayitSayisiAl() {
 
         // sorgu
-        String sayiSorugus = "SELECT * FROM "+VtSabitler.TABLO_ADI;
+        String sayiSorugus = "SELECT * FROM " + VtSabitler.TABLO_ADI;
         // veritabanı çalıştır
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         // bütün satırları cursor ile dolaş
-        Cursor cursor = sqLiteDatabase.rawQuery(sayiSorugus,null);
+        Cursor cursor = sqLiteDatabase.rawQuery(sayiSorugus, null);
         // cursor sayısı
         int veriSayısı = cursor.getCount();
         return veriSayısı;
     }
-
 
 
 }
